@@ -1,0 +1,88 @@
+/* Crossover — sistema de design
+   Paleta: preto profundo, roxo de selo, âmbar de destaque e branco quente. */
+
+:root {
+  /* ---- superfícies ---- */
+  --bg: #080808;
+  --bg-2: #0d0b10;
+  --bg-3: #121016;
+  --surface: #141119;
+  --surface-2: #1a1621;
+  --surface-3: #221c2c;
+
+  /* ---- roxo (marca) ---- */
+  --purple: #37096b;
+  --purple-deep: #250448;
+  --purple-mid: #4b1290;
+  --purple-light: #7b45c4;
+  --purple-soft: #a884e0;
+  --purple-wash: rgba(123, 69, 196, 0.14);
+
+  /* ---- âmbar (contraste / ação) ---- */
+  --amber: #f09b0e;
+  --amber-soft: #ffbe52;
+  --amber-deep: #b8730a;
+  --amber-wash: rgba(240, 155, 14, 0.12);
+
+  /* ---- texto ---- */
+  --white: #f0f0f0;
+  --white-2: #d7d5da;
+  --muted: #a5a1ad;
+  --muted-2: #7d7987;
+  --ink: #f0f0f0;
+
+  /* ---- linhas ---- */
+  --line: rgba(240, 240, 240, 0.11);
+  --line-strong: rgba(240, 240, 240, 0.24);
+  --line-purple: rgba(123, 69, 196, 0.35);
+
+  /* ---- aliases de compatibilidade ---- */
+  --ivory: var(--white);
+  --ivory-2: #e2e0e5;
+  --sand: #1d1826;
+  --sand-2: #2a2234;
+  --graphite: #0c0a0f;
+  --charcoal: #16131c;
+  --stone: var(--muted);
+  --stone-2: var(--muted-2);
+  --olive: var(--purple-light);
+  --olive-deep: var(--purple);
+  --burgundy: var(--amber);
+  --burgundy-deep: var(--amber-deep);
+  --gold: var(--amber);
+  --paper: var(--surface);
+  --line-light: rgba(240, 240, 240, 0.16);
+
+  /* ---- tipografia ---- */
+  --font-display: 'Bricolage Grotesque', 'Inter', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* ---- layout ---- */
+  --max: 1440px;
+  --gutter: clamp(20px, 4vw, 64px);
+  --nav-h: 76px;
+
+  /* ---- movimento ---- */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ---- sombras ---- */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5), 0 10px 30px -14px rgba(0, 0, 0, 0.7);
+  --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.5), 0 28px 70px -30px rgba(0, 0, 0, 0.9);
+  --shadow-lg: 0 40px 120px -40px rgba(0, 0, 0, 0.95);
+  --glow-purple: 0 0 0 1px rgba(123, 69, 196, 0.35), 0 24px 60px -30px rgba(75, 18, 144, 0.75);
+
+  --r-sm: 6px;
+  --r-md: 12px;
+  --r-lg: 20px;
+  --r-pill: 999px;
+
+  color-scheme: dark;
+}
+
+@media (max-width: 720px) {
+  :root {
+    --nav-h: 64px;
+  }
+}

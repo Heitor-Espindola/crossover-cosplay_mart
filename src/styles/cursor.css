@@ -1,0 +1,76 @@
+/* ===================================================================== */
+/*  CURSOR — seta arredondada desenhada em SVG (sem dependência externa)  */
+/* ===================================================================== */
+
+:root {
+  --cursor-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath d='M5.2 2.4c-.9-.6-2.1.3-1.8 1.4l5.1 21.9c.3 1.2 1.9 1.5 2.6.5l4.6-6.3 7.4 3.6c1.1.5 2.3-.4 2-1.6L20.9 4.5c-.3-1.2-1.8-1.5-2.6-.6l-4.1 4.7L5.2 2.4z' fill='%23f0f0f0' stroke='%2337096b' stroke-width='1.7' stroke-linejoin='round'/%3E%3C/svg%3E")
+    4 3, default;
+  --cursor-pointer: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath d='M11 1.8c1 0 1.9.8 1.9 1.9v9.1l1-.2V6.4c0-1 .8-1.9 1.9-1.9s1.9.8 1.9 1.9v6.2l.9-.2V8.2c0-1 .8-1.9 1.9-1.9s1.9.8 1.9 1.9v5.2l.9-.1v-1.7c0-1 .8-1.9 1.9-1.9s1.9.8 1.9 1.9v8.7c0 5-3.4 8.9-8.4 8.9-3.7 0-5.7-1.9-7.4-4.5l-4.6-7.3c-.6-1-.3-2.3.7-2.9 1-.6 2.2-.3 2.9.7l1.6 2.4V3.7c0-1.1.8-1.9 1.9-1.9z' fill='%23f09b0e' stroke='%23080808' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E")
+    13 2, pointer;
+  --cursor-text: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Crect x='2' y='2' width='24' height='24' rx='7' fill='none' stroke='%237b45c4' stroke-width='1.8'/%3E%3Cpath d='M10 9.5h8M14 9.5v9M10 18.5h8' stroke='%23f0f0f0' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E")
+    14 14, text;
+  --cursor-grab: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cg fill='%23f09b0e' stroke='%23080808' stroke-width='1.4' stroke-linejoin='round'%3E%3Cpath d='M8.5 14V6.5a1.7 1.7 0 013.4 0V13h.9V4.6a1.7 1.7 0 013.4 0V13h.9V6.6a1.7 1.7 0 013.4 0V13h.9V9a1.7 1.7 0 013.4 0v9.6c0 4.2-2.9 7.4-7.2 7.4-3.2 0-4.9-1.6-6.3-3.8l-3.9-6.2c-.5-.9-.3-2 .6-2.5.9-.5 1.9-.2 2.5.6l1.4 2z'/%3E%3C/g%3E%3C/svg%3E")
+    14 8, grab;
+  --cursor-grabbing: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cg fill='%23f09b0e' stroke='%23080808' stroke-width='1.4' stroke-linejoin='round'%3E%3Cpath d='M9 17V9.5a1.7 1.7 0 013.4 0V15h.9V6.6a1.7 1.7 0 013.4 0V15h.9V8.6a1.7 1.7 0 013.4 0V15h.9V11a1.7 1.7 0 013.4 0v7.6c0 4.2-2.9 7.4-7.2 7.4-3.2 0-4.9-1.6-6.3-3.8l-2.6-4.2c-.5-.9-.3-2 .6-2.5.9-.5 1.9-.2 2.5.6L9 17z'/%3E%3C/g%3E%3C/svg%3E")
+    14 10, grabbing;
+}
+
+/* aplica só em dispositivos com ponteiro fino (mouse) */
+@media (hover: hover) and (pointer: fine) {
+  html,
+  body {
+    cursor: var(--cursor-arrow);
+  }
+
+  a,
+  button,
+  [role='button'],
+  summary,
+  label[for],
+  .btn,
+  .card-hover {
+    cursor: var(--cursor-pointer);
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  li,
+  blockquote,
+  .muted,
+  .serif-italic {
+    cursor: var(--cursor-text);
+  }
+
+  input,
+  textarea {
+    cursor: var(--cursor-text);
+  }
+
+  select,
+  option {
+    cursor: var(--cursor-pointer);
+  }
+
+  .carousel__viewport {
+    cursor: var(--cursor-grab);
+  }
+
+  .carousel__viewport.is-grabbing {
+    cursor: var(--cursor-grabbing);
+  }
+
+  /* a mãozinha dentro de links volta a ser seta */
+  a p,
+  a h1,
+  a h2,
+  a h3,
+  button p,
+  button span {
+    cursor: inherit;
+  }
+}

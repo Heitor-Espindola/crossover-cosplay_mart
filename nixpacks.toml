@@ -1,0 +1,16 @@
+# Configuração do build no Railway (Nixpacks)
+# O front (React/Vite) é compilado e o Express serve o dist/ junto com a API.
+providers = ["node"]
+
+[variables]
+NODE_ENV = "production"
+NPM_CONFIG_PRODUCTION = "false"
+
+[phases.install]
+cmds = ["npm ci --include=dev"]
+
+[phases.build]
+cmds = ["npm run build"]
+
+[start]
+cmd = "node server/index.js"

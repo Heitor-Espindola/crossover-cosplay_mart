@@ -1,0 +1,20 @@
+# ── Segredos e dados locais (nunca subir para o Git) ──
+.env
+.env.local
+.env.*.local
+server/data/*.sqlite
+server/data/*.sqlite-*
+server/data/*.db
+
+# ── Dependências e build ──
+node_modules
+dist
+dist-ssr
+
+# ── Logs e temporários ──
+*.log
+npm-debug.log*
+shots
+.DS_Store
+Thumbs.db
+*.tsbuildinfo
