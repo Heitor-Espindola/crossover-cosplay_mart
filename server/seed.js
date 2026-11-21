@@ -8,25 +8,40 @@ export async function seedIfEmpty({ force = false } = {}) {
   if (count > 0 && !force) return false;
 
   if (force) {
-    await exec(`DELETE FROM order_items; DELETE FROM orders; DELETE FROM reviews; DELETE FROM loadouts;
-                DELETE FROM favorites; DELETE FROM addresses; DELETE FROM products; DELETE FROM categories;
-                DELETE FROM password_resets; DELETE FROM users;`);
+    await exec(`
+      TRUNCATE TABLE
+        order_items,
+        orders,
+        reviews,
+        loadouts,
+        favorites,
+        addresses,
+        products,
+        categories,
+        password_resets,
+        users
+      RESTART IDENTITY CASCADE;
+    `);
   }
 
   await transaction(async (tx) => {
 
     const insCat = tx.prepare(
-      `INSERT OR REPLACE INTO categories (slug, name, tagline, description, image, sort_order)
-       VALUES (@slug, @name, @tagline, @description, @image, @sortOrder)`,
+      `INSERT INTO categories 
+        (slug, name, tagline, description, image, sort_order)
+      VALUES 
+        (@slug, @name, @tagline, @description, @image, @sortOrder)
+      ON CONFLICT (slug) DO NOTHING`,
     );
     for (const c of categories) await insCat.run(c);
 
     const insProd = tx.prepare(
-      `INSERT OR REPLACE INTO products
-       (id, slug, name, category, collection, price, compare_price, short_description, description,
+      `INSERT INTO products
+        (id, slug, name, category, collection, price, compare_price, short_description, description,
         details, specs, images, sizes, stock, rating, review_count, featured, badge)
-       VALUES (@id, @slug, @name, @category, @collection, @price, @comparePrice, @shortDescription,
-        @description, @details, @specs, @images, @sizes, @stock, @rating, @reviewCount, @featured, @badge)`,
+      VALUES (@id, @slug, @name, @category, @collection, @price, @comparePrice, @shortDescription,
+        @description, @details, @specs, @images, @sizes, @stock, @rating, @reviewCount, @featured, @badge)
+      ON CONFLICT (id) DO NOTHING`,
     );
     for (const p of products) {
       await insProd.run({
@@ -72,7 +87,7 @@ export async function seedIfEmpty({ force = false } = {}) {
     await tx.prepare(
       `INSERT INTO orders (id, user_id, customer_name, customer_email, customer_phone, shipping_address,
         shipping_method, shipping_cost, payment_method, subtotal, total, status, payment_status, created_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now','-21 days'))`,
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP - INTERVAL '21 days')`,
     ).run(
       orderId,
       customerId,
@@ -99,7 +114,7 @@ export async function seedIfEmpty({ force = false } = {}) {
     await tx.prepare(
       `INSERT INTO orders (id, user_id, customer_name, customer_email, customer_phone, shipping_address,
         shipping_method, shipping_cost, payment_method, subtotal, total, status, payment_status, created_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now','-4 days'))`,
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP - INTERVAL '4 days')`,
     ).run(
       order2,
       customerId,

@@ -117,7 +117,11 @@ const cepOk = (c) => /^\d{5}-?\d{3}$/.test((c || '').trim());
 app.get('/api/health', async (_req, res) => {
   try {
     await db.prepare('SELECT 1').get();
-    res.json({ ok: true, db: isRemote ? 'turso' : 'sqlite-local', time: new Date().toISOString() });
+    res.json({
+      ok: true,
+      db: 'supabase-postgresql',
+      time: new Date().toISOString(),
+    });
   } catch (err) {
     res.status(500).json({ ok: false, error: String(err?.message || err) });
   }
@@ -162,7 +166,7 @@ app.get('/api/products', async (req, res) => {
     'price-asc': 'price ASC',
     'price-desc': 'price DESC',
     rating: 'rating DESC, review_count DESC',
-    newest: 'created_at DESC, rowid DESC',
+    newest: 'created_at DESC, id DESC',
     relevance: 'featured DESC, rating DESC, review_count DESC',
   }[sort] || 'featured DESC, rating DESC, review_count DESC';
 
@@ -472,7 +476,7 @@ app.post('/api/orders', async (req, res) => {
     );
     for (const l of lines) {
       await insItem.run(id, l.product.id, l.product.name, parseJson(l.product.images, [])[0], l.size, l.quantity, l.product.price);
-      await tx.prepare('UPDATE products SET stock = MAX(0, stock - ?) WHERE id = ?').run(l.quantity, l.product.id);
+      await tx.prepare('UPDATE products SET stock = GREATEST(0, stock - ?) WHERE id = ?',).run(l.quantity, l.product.id);
     }
   });
   res.status(201).json(await orderWithItems(id));
@@ -616,9 +620,24 @@ app.post('/api/admin/categories', requireAdmin, async (req, res) => {
   const { slug, name, tagline, description, image } = req.body || {};
   if (!slug || !name) return res.status(400).json({ error: 'Slug e nome são obrigatórios.' });
   const total = (await db.prepare('SELECT COUNT(*) AS n FROM categories').get()).n;
-  await db.prepare(
-    'INSERT OR REPLACE INTO categories (slug, name, tagline, description, image, sort_order) VALUES (?, ?, ?, ?, ?, ?)',
-  ).run(slug, name, tagline || '', description || '', image || '/img/studio/editorial-rack.jpg', total + 1);
+  await db.prepare(`
+    INSERT INTO categories
+      (slug, name, tagline, description, image, sort_order)
+    VALUES (?, ?, ?, ?, ?, ?)
+    ON CONFLICT (slug) DO UPDATE SET
+      name = EXCLUDED.name,
+      tagline = EXCLUDED.tagline,
+      description = EXCLUDED.description,
+      image = EXCLUDED.image,
+      sort_order = EXCLUDED.sort_order
+  `).run(
+    slug,
+    name,
+    tagline || '',
+    description || '',
+    image || '/img/studio/editorial-rack.jpg',
+    total + 1,
+  );
   res.status(201).json({ ok: true });
 });
 
