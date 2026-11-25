@@ -225,7 +225,7 @@
 
 .manifesto {
   padding-block: clamp(80px, 11vw, 160px) 0;
-  background: var(--white);
+  background: #141414;
 }
 
 .manifesto__grid {
