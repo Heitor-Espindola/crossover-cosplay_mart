@@ -57,6 +57,15 @@
   color: var(--muted);
 }
 
+.shop__search input::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+.shop__search:focus-within {
+  border-color: var(--purple-light);
+}
+
 .shop__search input {
   border: none;
   background: transparent;

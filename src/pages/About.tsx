@@ -36,21 +36,21 @@ const TIMELINE = [
 const FOUNDERS = [
   {
     name: 'Breno Shichinoe',
-    role: 'Produto e tecnologia',
-    text: 'Cuida do site, do checkout e de tudo que envolve código. Foi quem insistiu que a loja precisava funcionar bem no celular.',
-    image: '/img/people/model-7.jpg',
+    role: 'Designer',
+    text: 'Cuida do design da plataforma, criando uma experiência visual atraente e intuitiva para os usuários e seleção de imagens.',
+    image: '/img/people/Breno.jpg',
   },
   {
     name: 'Heitor Espíndola',
-    role: 'Curadoria e vendedores',
-    text: 'Conversa com cada ateliê, analisa portfólio e decide o que entra na vitrine. Também escreve as descrições das peças.',
-    image: '/img/people/model-5.jpg',
+    role: 'Desenvolvedor',
+    text: 'Cuida do site, do checkout e de tudo que envolve código. Foi quem insistiu que a loja precisava funcionar bem no celular.',
+    image: '/img/people/Heitor.jpg',
   },
   {
     name: 'João P. Militão',
-    role: 'Operação e atendimento',
-    text: 'Responde os compradores, acompanha prazos e media qualquer problema entre vitrine e cliente.',
-    image: '/img/people/model-9.jpg',
+    role: 'Projetistas',
+    text: 'Responsável por ideias e concepções iniciais, além de coordenar a equipe de desenvolvimento.',
+    image: '/img/people/Joao.jpg',
   },
 ];
 

@@ -513,14 +513,20 @@ html {
 .field select,
 .field textarea {
   height: 50px;
-  border: 1px solid var(--line);
-  background: var(--white);
+  border: 1px solid var(--line-strong);
+  background: var(--surface-3);
   border-radius: var(--r-sm);
   padding: 0 16px;
   font-size: 15px;
   color: var(--white);
   transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
   width: 100%;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--muted);
+  opacity: 1;
 }
 
 .field textarea {
@@ -540,7 +546,7 @@ html {
 .field textarea:focus {
   outline: none;
   border-color: var(--purple-light);
-  background: #fff;
+  background: var(--surface-2);
 }
 
 .field input[aria-invalid='true'],
